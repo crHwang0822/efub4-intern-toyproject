@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.efub.xclonecoding.global.entity.BaseTimeEntity;
 import org.efub.xclonecoding.member.domain.Member;
+import org.efub.xclonecoding.post.dto.SinglePostDto;
 
 @Entity
 @Getter
@@ -22,5 +23,16 @@ public class Post extends BaseTimeEntity {
 
     @Column(length = 140)
     private String content;
+
+
+    public SinglePostDto toSigleDto(){
+        return SinglePostDto.builder()
+                .postId(this.postId)
+                .writerName(this.writer.getName())
+                .writerNickname(this.writer.getNickname())
+                .content(this.content)
+                .regDate(this.getRegDate())
+                .build();
+    }
 
 }
