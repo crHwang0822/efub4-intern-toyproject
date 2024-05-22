@@ -49,6 +49,16 @@ public class PostService {
         return postDto;
     }
 
+    public PostListDto getPostByMember(Member member){
+        List<Post> posts = postRepository.findAllByWriter(member);
+        List<SinglePostDto> postDtos = posts.stream().map(post->post.toSigleDto()).collect(Collectors.toList());
+        PostListDto postListDto = PostListDto.builder()
+                .posts(postDtos)
+                .count((long) postDtos.size())
+                .build();
+        return postListDto;
+    }
+
     @Transactional(readOnly = true)
     public Post findPostById(Long postId){
         Post post = postRepository.findById(postId).orElseThrow((()->{
