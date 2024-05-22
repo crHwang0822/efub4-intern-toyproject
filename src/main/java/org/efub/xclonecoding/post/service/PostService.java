@@ -43,6 +43,12 @@ public class PostService {
         return postListDto;
     }
 
+    public SinglePostDto getPost(Long postId){
+        Post post = findPostById(postId);
+        SinglePostDto postDto = post.toSigleDto();
+        return postDto;
+    }
+
     @Transactional(readOnly = true)
     public Post findPostById(Long postId){
         Post post = postRepository.findById(postId).orElseThrow((()->{

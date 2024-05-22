@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.efub.xclonecoding.post.dto.PostAddRequestDto;
 import org.efub.xclonecoding.post.dto.PostListDto;
+import org.efub.xclonecoding.post.dto.SinglePostDto;
 import org.efub.xclonecoding.post.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,11 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public PostListDto getAllPost(){
         return postService.getAllPost();
+    }
+
+    @GetMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public SinglePostDto getPost(@PathVariable("postId") final Long postId){
+        return postService.getPost(postId);
     }
 }
