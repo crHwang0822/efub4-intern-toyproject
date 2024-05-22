@@ -19,4 +19,10 @@ public class PostController {
         return postService.addPost(requestDto);
     }
 
+    @DeleteMapping("/{postId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String deletePost(@PathVariable("postId") final Long postId){
+        postService.deletePost(postId);
+        return "트윗을 삭제했습니다.";
+    }
 }

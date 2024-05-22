@@ -23,4 +23,17 @@ public class PostService {
         return postId;
     }
 
+    public void deletePost(Long postId){
+        Post post = findPostById(postId);
+        postRepository.delete(post);
+    }
+
+    @Transactional(readOnly = true)
+    public Post findPostById(Long postId){
+        Post post = postRepository.findById(postId).orElseThrow((()->{
+            throw new IllegalArgumentException("존재하지 않는 트윗입니다.");
+        }));
+        return post;
+    }
+
 }
