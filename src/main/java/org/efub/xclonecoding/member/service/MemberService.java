@@ -2,6 +2,7 @@ package org.efub.xclonecoding.member.service;
 
 import lombok.RequiredArgsConstructor;
 import org.efub.xclonecoding.member.domain.Member;
+import org.efub.xclonecoding.member.dto.MemberProfileResponse;
 import org.efub.xclonecoding.member.dto.SignupRequestDto;
 import org.efub.xclonecoding.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,11 @@ public class MemberService {
         return memberId;
     }
 
+    public MemberProfileResponse getProfile(Long memberId){
+        Member member = findMemberById(memberId);
+        return member.toProfileDto();
+    }
+
     @Transactional(readOnly = true)
     public boolean existsByEmail(String email){
         return memberRepository.existsByEmail(email);
@@ -38,4 +44,12 @@ public class MemberService {
         return memberRepository.existsByNickname(nickname);
     }
 
+    @Transactional(readOnly = true)
+    public Member findMemberById(Long memberId){
+        Member member = memberRepository.findById(memberId).orElseThrow(()->{
+            throw new IllegalArgumentException("존재하지 않는 회원입니다.");
+        });
+
+        return member;
+    }
 }

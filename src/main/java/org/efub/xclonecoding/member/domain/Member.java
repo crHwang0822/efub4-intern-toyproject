@@ -3,6 +3,7 @@ package org.efub.xclonecoding.member.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import org.efub.xclonecoding.global.entity.BaseTimeEntity;
+import org.efub.xclonecoding.member.dto.MemberProfileResponse;
 
 import java.time.LocalDate;
 @Entity
@@ -37,5 +38,15 @@ public class Member extends BaseTimeEntity {
 
     @Column(length = 30)
     private String location;
+
+    public MemberProfileResponse toProfileDto(){
+        return MemberProfileResponse.builder()
+                .name(this.name)
+                .nickname(this.nickname)
+                .location(this.location)
+                .bio(this.bio)
+                .regDate(this.getRegDate())
+                .build();
+    }
 
 }
